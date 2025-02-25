@@ -1,0 +1,23 @@
+<button id="playButton" style="display:none;">Deine Nachricht abspielen</button>
+<audio id="audio" controls>
+    <source src="https://www.dropbox.com/scl/fi/n1mgbo1n92s3zpts1b3u9/Aufnahme.m4a?rlkey=9tjvarosdvgqwt2bm9w3f00yr&st=ni2d344e&raw=1" type="audio/mpeg">
+</audio>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var audio = document.getElementById("audio");
+        var button = document.getElementById("playButton");
+        var playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Autoplay blockiert, Nutzerinteraktion erforderlich.");
+                button.style.display = "block"; // Button sichtbar machen
+                button.addEventListener("click", function() {
+                    audio.play();
+                    button.style.display = "none"; // Button wieder verstecken
+                });
+            });
+        }
+    });
+</script>
